@@ -2,9 +2,11 @@
 
 import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { apiSearchUsers } from "../../utils/api";
 
-// 1. Criamos um componente interno SÓ para a busca
+// 🎯 CORREÇÃO AQUI: Apenas um "../" porque utils está dentro de app
+import { apiSearchUsers } from "../utils/api";
+
+// 1. Componente Interno (Lógica da Busca)
 function ConteudoPesquisa() {
   const searchParams = useSearchParams();
   const termo = searchParams.get("q"); 
@@ -81,11 +83,10 @@ function ConteudoPesquisa() {
   );
 }
 
-// 2. O Componente Principal ENVOLVE o conteúdo com Suspense
-// Isso corrige o erro do build!
+// 2. Componente Principal (Suspense OBRIGATÓRIO para Build)
 export default function PesquisaPage() {
   return (
-    <Suspense fallback={<div className="text-center p-10 text-gray-500">Carregando busca...</div>}>
+    <Suspense fallback={<div className="text-center p-20 text-gray-500">Carregando busca...</div>}>
       <ConteudoPesquisa />
     </Suspense>
   );
