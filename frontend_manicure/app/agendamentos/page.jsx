@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import CriarAgendamento from '../../components/Agendamento/CriarAgendamento';
 import MinhaAgenda from '../../components/Agendamento/MinhaAgenda';
-import { getCurrentUser, apiGetUserById } from '../../utils/api';
+// 🎯 CORREÇÃO DE CAMINHO: Tenta ir para utils
+import { getCurrentUser, apiGetUserById } from '../utils/api'; // <--- AQUI ESTÁ A CORREÇÃO
 import { useRouter } from 'next/navigation';
 
 export default function AgendamentosPage() {
@@ -22,7 +23,6 @@ export default function AgendamentosPage() {
     }, []);
 
     return (
-        // 🎯 OTIMIZAÇÃO DE LAYOUT: min-h-screen garante que a página cubra a tela toda
         <div className="max-w-4xl mx-auto p-6 min-h-screen">
             <button onClick={() => router.back()} className="mb-4 text-gray-500 hover:text-pink-600">← Voltar</button>
             <h1 className="text-3xl font-extrabold text-pink-600 mb-2 text-center">Central de Agendamentos</h1>
