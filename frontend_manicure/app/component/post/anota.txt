@@ -1,0 +1,8 @@
+components
+
+myfeed pode deletar 
+myfeed meus posts{
+create,
+update}
+
+post exibe um post

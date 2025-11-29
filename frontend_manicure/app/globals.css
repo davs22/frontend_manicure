@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.custom-scrollbar::-webkit-scrollbar { width: 8px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #ec4899; border-radius: 4px; }
+
+input, select, textarea {
+  outline: none;
+  background-color: white;
+  color: black;
+}
+@media (prefers-color-scheme: dark) {
+    input, select, textarea {
+        background-color: #1f2937;
+        color: white;
+        border-color: #374151;
+    }
+}
