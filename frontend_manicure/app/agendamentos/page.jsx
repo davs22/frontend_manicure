@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import CriarAgendamento from '../../components/Agendamento/CriarAgendamento';
 import MinhaAgenda from '../../components/Agendamento/MinhaAgenda';
-// 🎯 CORREÇÃO DE CAMINHO: Tenta ir para utils
-import { getCurrentUser, apiGetUserById } from '../utils/api'; // <--- AQUI ESTÁ A CORREÇÃO
+// 🎯 CORREÇÃO DE CAMINHO: Usando o alias absoluto '@/'
+import { getCurrentUser, apiGetUserById } from '@/app/utils/api'; 
 import { useRouter } from 'next/navigation';
 
 export default function AgendamentosPage() {
@@ -15,6 +15,7 @@ export default function AgendamentosPage() {
         const user = getCurrentUser();
         if(!user) { router.push('/'); return; }
 
+        // A lógica de manicure está correta aqui
         apiGetUserById(user.id).then(u => {
             if (u && (u.manicure || u.especialidade)) {
                 setIsManicure(true);
