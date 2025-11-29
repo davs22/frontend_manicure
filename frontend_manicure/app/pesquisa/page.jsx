@@ -3,10 +3,15 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
-// 🎯 CORREÇÃO AQUI: Apenas um "../" porque utils está dentro de app
-import { apiSearchUsers } from "../utils/api";
+// ✅ CORREÇÃO FINAL: Vamos usar o caminho absoluto que o Next.js prefere, assumindo que
+// a Vercel compila o 'app' de forma plana.
+// Se '../utils/api' falhou, o problema é na estrutura de pastas. 
+// Tentaremos o caminho de Next.js preferido: 'app/utils' está no mesmo nível do 'app/pesquisa'
+// O caminho deve ser ../utils/api
 
-// 1. Componente Interno (Lógica da Busca)
+import { apiSearchUsers } from "../utils/api"; 
+
+// 1. Componente INTERNO (Onde usamos useSearchParams)
 function ConteudoPesquisa() {
   const searchParams = useSearchParams();
   const termo = searchParams.get("q"); 
@@ -83,7 +88,7 @@ function ConteudoPesquisa() {
   );
 }
 
-// 2. Componente Principal (Suspense OBRIGATÓRIO para Build)
+// 2. Componente Principal (Suspense)
 export default function PesquisaPage() {
   return (
     <Suspense fallback={<div className="text-center p-20 text-gray-500">Carregando busca...</div>}>
