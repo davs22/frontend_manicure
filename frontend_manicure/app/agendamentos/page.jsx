@@ -1,10 +1,16 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import CriarAgendamento from '../../components/Agendamento/CriarAgendamento';
-import MinhaAgenda from '../../components/Agendamento/MinhaAgenda';
-// 🎯 CORREÇÃO DE CAMINHO: Usando o alias absoluto '@/'
-import { getCurrentUser, apiGetUserById } from '@/app/utils/api'; 
+
+// 🎯 CORREÇÃO 1: Troque '../../components/Agendamento/CriarAgendamento' por './component/Agendamento/CriarAgendamento'
+import CriarAgendamento from './component/Agendamento/CriarAgendamento'; 
+
+// 🎯 CORREÇÃO 2: Troque '../../components/Agendamento/MinhaAgenda' por './component/Agendamento/MinhaAgenda'
+import MinhaAgenda from './component/Agendamento/MinhaAgenda'; 
+
+// 🎯 CORREÇÃO 3: Troque '../../utils/api' por './utils/api'
+import { getCurrentUser, apiGetUserById } from './utils/api'; 
 import { useRouter } from 'next/navigation';
+
 
 export default function AgendamentosPage() {
     const [isManicure, setIsManicure] = useState(false);
