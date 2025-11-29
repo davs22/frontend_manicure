@@ -2,10 +2,9 @@
 
 import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-// Ajuste do import: sobe 1 nível (pesquisa -> app) e entra em utils
 import { apiSearchUsers } from "../../utils/api";
 
-// 1. Criamos um componente interno para a lógica de busca
+// 1. Criamos um componente interno SÓ para a busca
 function ConteudoPesquisa() {
   const searchParams = useSearchParams();
   const termo = searchParams.get("q"); 
@@ -82,10 +81,10 @@ function ConteudoPesquisa() {
   );
 }
 
-// 2. O Componente Principal apenas "encapsula" o conteúdo com Suspense
+// 2. O Componente Principal ENVOLVE o conteúdo com Suspense
+// Isso corrige o erro do build!
 export default function PesquisaPage() {
   return (
-    // O fallback é o que aparece enquanto o Next.js descobre os parâmetros da URL
     <Suspense fallback={<div className="text-center p-10 text-gray-500">Carregando busca...</div>}>
       <ConteudoPesquisa />
     </Suspense>
