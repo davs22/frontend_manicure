@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-// Importação ajustada para sua estrutura (app/perfil/[id] -> sobe 2 niveis -> app/utils)
-import { apiGetUserById, apiFollowUser, apiUnfollowUser, getCurrentUser, apiGetFollowStatus } from "../../utils/api";
+// ✅ CORREÇÃO: Usa o alias absoluto '@/utils/api'
+import { apiGetUserById, apiFollowUser, apiUnfollowUser, getCurrentUser, apiGetFollowStatus } from '@/utils/api';
 
 export default function PerfilPublico() {
   const params = useParams();
