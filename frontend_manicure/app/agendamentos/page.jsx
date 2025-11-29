@@ -1,15 +1,14 @@
 "use client";
+
 import React, { useEffect, useState } from 'react';
-
-// 🎯 CORREÇÃO 1: Troque '../../components/Agendamento/CriarAgendamento' por './component/Agendamento/CriarAgendamento'
-import CriarAgendamento from './component/Agendamento/CriarAgendamento'; 
-
-// 🎯 CORREÇÃO 2: Troque '../../components/Agendamento/MinhaAgenda' por './component/Agendamento/MinhaAgenda'
-import MinhaAgenda from './component/Agendamento/MinhaAgenda'; 
-
-// 🎯 CORREÇÃO 3: Troque '../../utils/api' por './utils/api'
-import { getCurrentUser, apiGetUserById } from './utils/api'; 
+// CORREÇÃO: Deve ser '../component/' e NÃO '../../components/'
+import CriarAgendamento from '../component/Agendamento/CriarAgendamento'; 
+// CORREÇÃO: Deve ser '../component/' e NÃO '../../components/'
+import MinhaAgenda from '../component/Agendamento/MinhaAgenda'; 
+// CORREÇÃO: Deve ser '../utils/api' e NÃO '../../utils/api'
+import { getCurrentUser, apiGetUserById } from '../utils/api'; 
 import { useRouter } from 'next/navigation';
+// ... restante do código
 
 
 export default function AgendamentosPage() {
