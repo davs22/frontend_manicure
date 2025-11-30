@@ -119,4 +119,41 @@ export async function apiGetComments(postId) {
 
 export async function apiFollowUser(userId) { return apiFetch(`/api/follow`, { method: "POST", body: JSON.stringify({ seguidoId: userId }) }); }
 export async function apiUnfollowUser(userId) { return apiFetch(`/api/follow`, { method: "DELETE", body: JSON.stringify({ seguidoId: userId }) }); }
-export async function apiGetFollowStatus(userId) { return apiFetch(`/api/follow/status/${userId}`, { method: "GET" }); }
+export async function apiGetFollowStatus(userId) { return apiFetch(`/api/follow/status/${userId}`, { method: "GET" }); }/*
+  Função de upload de imagem usada pela UI.
+  Recebe:
+    - file: File (do input type="file") ou Blob
+    - campo (opcional): nome do campo de form-data (default: "file")
+  Retorna o JSON do backend ou lança erro.
+*/
+export async function apiUploadImage(file, campo = "file") {
+  if (!file) throw new Error("Nenhum arquivo fornecido para upload.");
+
+  const token = getToken();
+  const form = new FormData();
+  // se 'file' for array ou FileList, usa o primeiro
+  if (file instanceof FileList || Array.isArray(file)) {
+    form.append(campo, file[0]);
+  } else {
+    form.append(campo, file);
+  }
+
+  const headers = {};
+  if (token) headers["Authorization"] = `Bearer ${token}`;
+
+  // Não definir 'Content-Type' quando usar FormData — o browser define boundary automaticamente
+  const res = await fetch(`${API_URL}/upload`, { method: "POST", body: form, headers });
+
+  if (res.status === 401) { logout(); return; }
+
+  if (!res.ok) {
+    const txt = await res.text();
+    throw new Error(txt || `Erro ${res.status}: ${res.statusText}`);
+  }
+
+  // se backend responder com 201/204 sem corpo
+  if (res.status === 204 || res.status === 201) return null;
+
+  const text = await res.text();
+  return text ? JSON.parse(text) : null;
+}
