@@ -67,10 +67,19 @@ export async function apiRegister(userData) {
   return apiFetch("/auth/register", { method: "POST", body: JSON.stringify(userData) });
 }
 
+
 export async function apiLogin({ email, senha }) {
   const data = await apiFetch("/auth/login", { method: "POST", body: JSON.stringify({ email, senha }) });
-  if (data.token) setToken(data.token);
-  if (data.usuario) localStorage.setItem("currentUser", JSON.stringify(data.usuario));
+  
+  // 🔴 CORREÇÃO: Verificamos se 'data' existe antes de tentar ler '.token'
+  if (data && data.token) {
+      setToken(data.token);
+  }
+  
+  if (data && data.usuario) {
+      localStorage.setItem("currentUser", JSON.stringify(data.usuario));
+  }
+  
   return data;
 }
 
