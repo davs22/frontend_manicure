@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 // ✅ CORREÇÃO: Usa o alias absoluto '@/utils/api'
 import { getCurrentUser, apiGetUserById, apiUpdateUser, apiUploadImage } from '@/utils/api'; 
-import Post from '../../component/post/Post';
-import EditarPerfilModal from '../../component/Perfil/EditarPerfilModal';
+import Post from '../component/post/Post';
+import EditarPerfilModal from '../component/Perfil/EditarPerfilModal';
 
 export default function Perfil() {
     const [user, setUser] = useState(null);
