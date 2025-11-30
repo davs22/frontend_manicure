@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
+// Caminhos de componentes corrigidos para serem absolutos
 import Feed from "./component/post/Feed";
 import AuthPage from "./component/auth/AuthPage";
 import FeedUsuarios from "./component/Feed/FeedUsuarios"; 
 import FiltroManicures from "./component/Home/FiltroManicures";
-// ✅ CORREÇÃO: Usa o caminho absoluto (Alias)
+// ✅ CORREÇÃO: Usa o alias absoluto '@/utils/api'
 import { logout, getCurrentUser } from '@/utils/api';
 
 

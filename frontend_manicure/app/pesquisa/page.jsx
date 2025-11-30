@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-// CORREÇÃO: Usa o alias absoluto '@/app/'
-import { apiSearchUsers } from '@/app/utils/api'; 
+// ✅ CORREÇÃO: Usa o alias absoluto '@/utils/api'
+import { apiSearchUsers } from '@/utils/api'; 
 
-// 1. Componente INTERNO (Onde usamos useSearchParams)
+// 1. Componente Interno (Lógica)
 function ConteudoPesquisa() {
   const searchParams = useSearchParams();
   const termo = searchParams.get("q"); 

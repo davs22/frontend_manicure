@@ -1,15 +1,10 @@
 "use client";
-
 import React, { useEffect, useState } from 'react';
-// CORREÇÃO: Deve ser '../component/' e NÃO '../../components/'
-import CriarAgendamento from '../component/Agendamento/CriarAgendamento'; 
-// CORREÇÃO: Deve ser '../component/' e NÃO '../../components/'
-import MinhaAgenda from '../component/Agendamento/MinhaAgenda'; 
-// CORREÇÃO: Deve ser '../utils/api' e NÃO '../../utils/api'
-import { getCurrentUser, apiGetUserById } from '../utils/api'; 
+import CriarAgendamento from '@/components/Agendamento/CriarAgendamento'; // Corrigido para alias
+import MinhaAgenda from '@/components/Agendamento/MinhaAgenda'; // Corrigido para alias
+// ✅ CORREÇÃO: Usa o alias absoluto '@/utils/api'
+import { getCurrentUser, apiGetUserById } from '@/utils/api'; 
 import { useRouter } from 'next/navigation';
-// ... restante do código
-
 
 export default function AgendamentosPage() {
     const [isManicure, setIsManicure] = useState(false);
@@ -20,7 +15,6 @@ export default function AgendamentosPage() {
         const user = getCurrentUser();
         if(!user) { router.push('/'); return; }
 
-        // A lógica de manicure está correta aqui
         apiGetUserById(user.id).then(u => {
             if (u && (u.manicure || u.especialidade)) {
                 setIsManicure(true);
@@ -34,7 +28,6 @@ export default function AgendamentosPage() {
             <h1 className="text-3xl font-extrabold text-pink-600 mb-2 text-center">Central de Agendamentos</h1>
             
             <div className="grid gap-12 mt-8">
-                {/* VISÃO DA MANICURE */}
                 {!loading && isManicure && (
                     <div className="animate-fadeIn">
                         <MinhaAgenda />
@@ -44,7 +37,6 @@ export default function AgendamentosPage() {
                     </div>
                 )}
                 
-                {/* VISÃO DO CLIENTE */}
                 <div>
                     <h3 className="text-xl font-bold text-gray-700 dark:text-gray-300 mb-6 text-center">Agendar Horário</h3>
                     <CriarAgendamento />
