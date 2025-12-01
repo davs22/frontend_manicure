@@ -45,20 +45,34 @@ export default function Perfil() {
     const handleUpdate = async (updatedData, fotoFile) => {
         try {
             let urlFotoPerfil = updatedData.urlFotoPerfil;
+
+            // 1. Se o usuário escolheu uma foto nova...
             if (fotoFile) {
-                const uploadResult = await apiUploadImage(fotoFile);
-                if (uploadResult?.url) {
-                    urlFotoPerfil = uploadResult.url;
-                }
+                // ...a gente converte ela para Texto (Base64) aqui mesmo!
+                const toBase64 = file => new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = error => reject(error);
+                });
+
+                // O texto gigante da imagem fica guardado aqui
+                urlFotoPerfil = await toBase64(fotoFile);
             }
 
+            // 2. Montamos o objeto final com o texto da imagem
             const finalUpdate = { ...updatedData, urlFotoPerfil };
+            
+            // 3. Enviamos tudo para o Java (que vai salvar no banco Postgres)
             await apiUpdateUser(currentUser.id, finalUpdate);
+            
+            // 4. Atualiza a tela imediatamente
             setUser(prev => ({ ...prev, ...finalUpdate }));
             setIsEditing(false);
+            
         } catch (error) {
             console.error("Erro ao atualizar perfil:", error);
-            alert("Erro ao salvar o perfil."); 
+            alert("Erro ao salvar o perfil. Tente uma foto menor."); 
         }
     };
 
